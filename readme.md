@@ -5,8 +5,11 @@ My reading notes for the book
 [Deploying Rails](http://pragprog.com/book/cbdepra/deploying-rails).
 
 
+Chapter 2
+===========================
+
 2.1 Installing VirtualBox and Vagrant
-=====================================
+-------------------------------------
 
 What I try to install:
 
@@ -15,8 +18,8 @@ What I try to install:
 * Ubuntu precise32
 * Ruby 1.9.3
 
-VirtualBox 4.2.14 is buggy (at least when used with Vagrant) and can't boot
-boxes. I have to downgrade VirtualBox to version 4.2.10. See
+VirtualBox 4.2.14 is buggy (at least when used with Vagrant in Debian)
+and can't boot boxes. I have to downgrade VirtualBox to version 4.2.10. See
 [Vagrant issue](https://github.com/mitchellh/vagrant/issues/1847).
 
 After Ruby install I must do:
@@ -24,16 +27,15 @@ After Ruby install I must do:
     sudo ln -s /usr/local/bin/ruby /opt/vagrant_ruby/bin/ruby
 
 
-To try
-----------------------
+###To try
 
 Instead of removing system Ruby and compiling Ruby 1.9.3, why not simply try to:
 
     sudo apt-get install ruby1.9.3
-    sudo update-alternatives --config ruby
 
-To do
----------------------
+With this method, /opt/vagrant_ruby/bin/ruby still point to version 1.8.7.
+
+###To do
 
 A box with:
 
@@ -43,16 +45,19 @@ A box with:
 
 
 2.2 Configuring Networks and Multiple Virtual Machines
-======================================================
+------------------------------------------------------
 
-Vagrant settings
-------------------------------------
+###Vagrant settings
 
 Vagrant API is really, really different than that given in the book.
 
 _That sound
 very strange to me because the book said it use Vagrant 1.0.2. I'm using Vagrant
 1.2.2, so the API should not be broken. Is it Vagrant's fault or book's fault?_
+
+**EDIT** (2013-06-23): It's the Vagrant's behaviour:
+[doc](http://docs.vagrantup.com/v2/vagrantfile/version.html). It's like a
+versioning system "a la Java", I really hate this thing.
 
     config.vm.provider :virtualbox do |vb|
       vb.name = "UbuntuPrecise32"
@@ -68,7 +73,7 @@ Shared folder is automatic:
 
 
 2.3 Running Multiple VMs
-===========================================
+-------------------------------------------
 
 Settings that worked for me:
 
@@ -102,10 +107,9 @@ Do not specify:
 This is done automatically, and even could prevent your VMs to boot.
 
 2.6 For Future Reference
-========================
+------------------------
 
-My personnal complete Vagrantfile
----------------------------------
+###My personnal complete Vagrantfile
 
     # vi: set ft=ruby :
     Vagrant.configure("2") do |config|
