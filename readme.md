@@ -242,6 +242,18 @@ And that's tell me I forgot to install `libcurl4-openssl-dev`, so I:
 
     sudo apt-get install libcurl4-openssl-dev -y
 
+
+3.8 Updating the Base Box
+-------------------------
+
+Instead of
+
+    vagrant box remove precise32_with_ruby193
+
+it is
+
+    vagrant box remove precise32_with_ruby193 virtualbox
+
 Usefull Documentation
 =====================
 
@@ -249,3 +261,4 @@ Usefull Documentation
 * [Vagrant](http://docs.vagrantup.com/v2/)
 * [VirtualBox](https://www.virtualbox.org/wiki/Documentation)
 * [Passenger](https://www.phusionpassenger.com/support#documentation)
+* [PuppetForge](http://forge.puppetlabs.com/)
