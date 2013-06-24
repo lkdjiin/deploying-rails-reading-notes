@@ -48,6 +48,10 @@ A box with:
 * .bashrc, alias
 * git shortcuts and config
 
+**Edit** (2013-06-24) I think a «base box» with vim, bashrc, git config, etc
+but without any other changes (i.e no specific ruby version) will be a good
+started point.
+
 
 2.2 Configuring Networks and Multiple Virtual Machines
 ------------------------------------------------------
@@ -62,7 +66,8 @@ very strange to me because the book said it use Vagrant 1.0.2. I'm using Vagrant
 
 **EDIT** (2013-06-23): It's the Vagrant's behaviour:
 [doc](http://docs.vagrantup.com/v2/vagrantfile/version.html). It's like a
-versioning system "a la Java", I really hate this thing.
+versioning system "a la Java", I really hate this thing. (I mean the versioning
+system, not Vagrant...)
 
     config.vm.provider :virtualbox do |vb|
       vb.name = "UbuntuPrecise32"
