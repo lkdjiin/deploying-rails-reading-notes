@@ -11,7 +11,7 @@ Chapter 2
 2.1 Installing VirtualBox and Vagrant
 -------------------------------------
 
-What I try to install:
+What I try to install here:
 
 * VirtualBox 4.2.14
 * Vagrant 1.2.2
@@ -26,6 +26,10 @@ After Ruby install I must do:
 
     sudo ln -s /usr/local/bin/ruby /opt/vagrant_ruby/bin/ruby
 
+###Information
+
+`apt-get install -y`  
+`-y` says yes to all questions.
 
 ###To try
 
@@ -41,7 +45,8 @@ A box with:
 
 * Ruby 2.0
 * vim + .vimrc, etc
-* .bashrc
+* .bashrc, alias
+* git shortcuts and config
 
 
 2.2 Configuring Networks and Multiple Virtual Machines
@@ -123,6 +128,71 @@ This is done automatically, and even could prevent your VMs to boot.
         vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
       end
     end
+
+
+Chapter 3
+==============================
+
+3.2 Setting Up Puppet
+---------------------
+
+**puppetrails/puppetvm/Vagrantfile**
+
+    Vagrant.configure("2") do |config|
+      config.vm.box = "precise32_with_ruby193"
+      config.vm.hostname = "app"
+      config.vm.network :private_network, ip: "33.33.13.37"
+      config.vm.synced_folder "../massiveapp_ops", "/etc/puppet"
+      config.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "512"]
+        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+      end
+    end
+
+To install Puppet, I'll stick close to the book by installing the Puppet gem
+version 2.7.22. There is a 3.2.2 available, but I'll look it later.
+
+###To do
+
+Find and install vim syntax for puppet.
+
+**Edit** (2013-06-24) Installed from
+[here](https://github.com/puppetlabs/puppet-syntax-vim)
+
+
+3.3 Installing Apache with Puppet
+---------------------------------
+
+Git command lines in the book should have the `-a` switch.
+
+**puppetrails/puppetvm_with_port_80_forwarded/Vagrantfile**
+
+    Vagrant.configure("2") do |config|
+      config.vm.box = "precise32_with_ruby193"
+      config.vm.hostname = "app"
+      config.vm.network :forwarded_port, guest: 80, host: 4567,
+                        auto_correct: true
+      config.vm.network :private_network, ip: "33.33.13.37"
+      config.vm.synced_folder "../massiveapp_ops", "/etc/puppet"
+      config.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "512"]
+        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+      end
+    end
+
+3.4 Configuring MySQL with Puppet
+---------------------------------
+
+###Information
+
+`mkdir -p`  
+`-p` or `--parents` create parent folders if needed.
+
+###To do
+
+Puppet: package > ensure > present or installed, what is the difference?
+
+I really need to install my git config in the server.
 
 Usefull Documentation
 =====================
