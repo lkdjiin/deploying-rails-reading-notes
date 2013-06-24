@@ -65,6 +65,21 @@ A box with:
 but without any other changes (i.e no specific ruby version) will be a good
 started point.
 
+    sudo apt-get install vim -y
+
+Copy/paste dotfiles in the project directory (vagrant root) then
+
+    cp /vagrant/.vimrc ~/.vimrc
+    cp -r /vagrant/.vim .
+
+And remove dotfiles from project directory. Do similar thing for
+`.gitconfig`, `.gemrc` and `.inputrc`. Then package the box:
+
+    vagrant package
+    vagrant box remove precise32_with_ruby193 virtualbox
+    vagrant box add precise32_with_ruby193 package.box
+
+
 
 2.2 Configuring Networks and Multiple Virtual Machines
 ------------------------------------------------------
