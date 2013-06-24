@@ -1,9 +1,22 @@
 Deploying Rails
 =====================================
 
-My reading notes for the book
+This is my reading notes for the book
 [Deploying Rails](http://pragprog.com/book/cbdepra/deploying-rails).
 
+I've bought this book because I'll soon need to launch a rails app with the
+following requirements:
+
+* Rails 4
+* Ruby 2
+* Postgresql
+
+And if I'm lucky, I'll have to launch many little rails apps (as many as
+possible in a single server) with:
+
+* Rails 4 (but 3.2 is good enough)
+* Ruby 2 (but 1.9.3 is good enough)
+* Sqlite3
 
 Chapter 2
 ===========================
@@ -199,9 +212,31 @@ Puppet: package > ensure > present or installed, what is the difference?
 
 I really need to install my git config in the server.
 
+3.5 Creating the MassiveApp Rails Directory Tree
+------------------------------------------------
+
+###To do
+
+Review unix file mode (755, 600, etc)
+
+3.6 Writing a Passenger Module
+------------------------------
+
+The book says to install passenger 3.0.11. I'll do that for the exercise.
+But I'll need passenger 4.x to run Rails 4/Ruby 2, which is my goal.
+
+My first error with Puppet:
+
+    err: /Stage[main]/Passenger/Exec[/usr/local/bin/ 
+    passenger-install-apache2-module --auto]/returns: change from notrun
+    to 0 failed: /usr/local/bin/passenger-install-apache2-module --auto 
+    returned 1 instead of one of [0] at 
+    /etc/puppet/modules/passenger/manifests/init.pp:18
+
 Usefull Documentation
 =====================
 
 * [ssh](http://support.suso.com/supki/SSH_Tutorial_for_Linux)
 * [Vagrant](http://docs.vagrantup.com/v2/)
 * [VirtualBox](https://www.virtualbox.org/wiki/Documentation)
+* [Passenger](https://www.phusionpassenger.com/support#documentation)
