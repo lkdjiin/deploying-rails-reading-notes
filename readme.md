@@ -233,6 +233,15 @@ My first error with Puppet:
     returned 1 instead of one of [0] at 
     /etc/puppet/modules/passenger/manifests/init.pp:18
 
+No more errors in the console output (is there a Puppet switch for that?).
+So I ran:
+
+    /usr/local/bin/passenger-install-apache2-module --auto
+
+And that's tell me I forgot to install `libcurl4-openssl-dev`, so I:
+
+    sudo apt-get install libcurl4-openssl-dev -y
+
 Usefull Documentation
 =====================
 
