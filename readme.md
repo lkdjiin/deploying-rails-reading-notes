@@ -269,6 +269,34 @@ it is
 
     vagrant box remove precise32_with_ruby193 virtualbox
 
+
+Chapter 4
+=========================
+
+4.1 Setting Up Capistrano
+-------------------------
+
+Book says Capistrano 2.11.2, I'll give a try to version 2.15.4.
+
+4.4 Pushing a Release
+---------------------
+
+Capistrano deploy works well. But when `localhost:4567` I see only the
+default Apache page. Frustrating...
+
+The `massiveapp_ops/modules/apache2/files/massiveapp.conf` is wrong.
+A working version is:
+
+    <VirtualHost *:80>
+      ServerName localhost
+      DocumentRoot "/var/massiveapp/current/public/"
+      CustomLog /var/log/apache2/massiveapp-access_log combined
+      ErrorLog /var/log/apache2/massiveapp-error_log
+    </VirtualHost>
+
+Then `puppet apply` again and it's work.
+
+
 Usefull Documentation
 =====================
 
@@ -277,3 +305,5 @@ Usefull Documentation
 * [VirtualBox](https://www.virtualbox.org/wiki/Documentation)
 * [Passenger](https://www.phusionpassenger.com/support#documentation)
 * [PuppetForge](http://forge.puppetlabs.com/)
+* [Capistrano](https://github.com/capistrano/capistrano/wiki)
+
