@@ -380,6 +380,37 @@ I see a promise in this title: no needs for Apache. So I hope far
 less config struggle and headache. So cool. But why not start the book
 with that?
 
+    Vagrant.configure("2") do |config|
+      config.vm.box = "precise32"
+      config.vm.network :forwarded_port, guest: 3000, host: 4000, auto_correct: true
+      config.vm.network :forwarded_port, guest: 3001, host: 4001, auto_correct: true
+
+      config.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "512"]
+        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+      end
+    end
+
+###To try
+
+Quoted from the book:
+
+_«The default Rails environment is development, but we could easily started
+the app in production mode with Passenger’s `--environment` flag.»_
+
+9.3 Using Systemwide RVM
+------------------------
+
+Interesting but not usefull for me, at least now.
+
+9.4 Watching Passenger Standalone with Monit
+--------------------------------------------
+
+Not working... Again... One more hour spent for what?
+
+Anyway I should check Monit from its website. This could be a perfect thing
+for my needs.
+
 
 Usefull Documentation
 =====================
@@ -391,4 +422,4 @@ Usefull Documentation
 * [PuppetForge](http://forge.puppetlabs.com/)
 * [Capistrano](https://github.com/capistrano/capistrano/wiki)
 * [Passenger Standalone](http://www.modrails.com/documentation/Users%20guide%20Standalone.html)
-
+* [Monit](http://mmonit.com/monit/documentation/)
