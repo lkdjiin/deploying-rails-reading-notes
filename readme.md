@@ -296,6 +296,90 @@ A working version is:
 
 Then `puppet apply` again and it's work.
 
+Chapter 6
+========================
+
+6.1 A MassiveApp to Monitor
+---------------------------
+
+    Vagrant.configure("2") do |config|
+      config.vm.define :app do |app|
+        app.vm.box = "precise32_with_ruby193"
+        app.vm.network :forwarded_port, guest: 80, host: 4567, auto_correct: true
+        app.vm.hostname = "app"
+        app.vm.network :private_network, ip: "33.33.13.37"
+        app.vm.synced_folder "../massiveapp_ops", "/etc/puppet"
+        app.vm.provider :virtualbox do |vb|
+          vb.customize ["modifyvm", :id, "--memory", "512"]
+          vb.customize ["modifyvm", :id, "--cpuexecutioncap", "35"]
+        end
+      end
+
+      config.vm.define :nagios do |nagios|
+        nagios.vm.box = "precise32_with_ruby193"
+        nagios.vm.network :forwarded_port, guest: 80, host: 4568, auto_correct: true
+        nagios.vm.network :private_network, ip: "33.33.13.38"
+        nagios.vm.hostname = "nagios"
+        nagios.vm.synced_folder "../massiveapp_ops", "/etc/puppet"
+        nagios.vm.provider :virtualbox do |vb|
+          vb.customize ["modifyvm", :id, "--memory", "512"]
+          vb.customize ["modifyvm", :id, "--cpuexecutioncap", "35"]
+        end
+      end
+    end
+
+For the rest of this chapter, I'm getting so many errors that I give up
+after a fight of 2 hours.
+
+
+Chapter 7
+======================
+
+After bad experience of the previous chapter, I decide to skip this one.
+
+
+Chapter 8
+=====================
+
+A very important chapter, but not for today.
+
+
+Chapter 9
+=====================
+
+9.1 Installing RVM
+------------------
+
+Replace
+
+    sudo apt-get install build-essential zlib1g-dev libssl-dev libreadline-dev \
+      git-core curl libyaml-dev libcurl4-dev libsqlite3-dev -y
+
+by
+
+    sudo apt-get install build-essential zlib1g-dev libssl-dev libreadline-dev \
+      git-core curl libyaml-dev libcurl4-openssl-dev libsqlite3-dev -y
+
+Installing Rvm on Ubuntu precise was really easy. I remember how it was
+tedious to install it years ago on my Debian box.
+
+###To do
+
+I'd definitely look at this later:
+
+    You are using '.rvmrc', it requires trusting, it is slower and it is not compatible with other ruby managers,
+    you can switch to '.ruby-version' using 'rvm rvmrc to [.]ruby-version'
+    or ignore this warnings with 'rvm rvmrc warning ignore /home/vagrant/app193/.rvmrc',
+    '.rvmrc' will continue to be the default project file in RVM 1 and RVM 2,
+    to ignore the warning for all files run 'rvm rvmrc warning ignore all.rvmrcs'.
+
+9.2 Serving Applications with Passenger Standalone
+--------------------------------------------------
+
+I see a promise in this title: no needs for Apache. So I hope far
+less config struggle and headache. So cool. But why not start the book
+with that?
+
 
 Usefull Documentation
 =====================
@@ -306,4 +390,5 @@ Usefull Documentation
 * [Passenger](https://www.phusionpassenger.com/support#documentation)
 * [PuppetForge](http://forge.puppetlabs.com/)
 * [Capistrano](https://github.com/capistrano/capistrano/wiki)
+* [Passenger Standalone](http://www.modrails.com/documentation/Users%20guide%20Standalone.html)
 
